@@ -6,16 +6,11 @@ from werkzeug.security import generate_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-# Creamos una instancia de SQLAlchemy
 db = SQLAlchemy()
 
 from .models import User, Role
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
-# -------------------------------------------------------
-# Configuracion del fichero de logs
-# Basado en: lineadecodigo.com/python/logs-en-flask/
-# -------------------------------------------------------
 LOG_FILENAME = 'logs/app.log'
 os.makedirs('logs', exist_ok=True)
 
@@ -25,8 +20,6 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 )
-# -------------------------------------------------------
-
 
 def create_app():
     app = Flask(__name__)
@@ -62,7 +55,6 @@ def create_app():
             user_datastore.add_role_to_user(user_datastore.find_user(email='admin@example.com'), 'admin')
             db.session.commit()
 
-        # LOG: Inicio de la aplicacion
         logging.info('EVENTO: INICIO_APP | La aplicacion Flask ha iniciado correctamente.')
 
     from .auth import auth as auth_blueprint
