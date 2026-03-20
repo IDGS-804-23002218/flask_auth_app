@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejemplo de Autenticación con Flask</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <style>
+        /* Color de fondo personalizado — reemplaza el azul primario de Bulma */
+        .hero.is-primary {
+            background-color: #1a3c5e !important; /* Azul marino oscuro */
+        }
+
+        .hero.is-primary .navbar-item,
+        .hero.is-primary .navbar-item:hover {
+            color: #e0f0ff;
+        }
+
+        .hero.is-primary .navbar-item:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 4px;
+        }
+
+        .hero.is-primary .title {
+            color: #ffffff;
+        }
+
+        .hero.is-primary .subtitle {
+            color: #b0cce8;
+        }
+
+        /* Barra superior con un tono ligeramente más oscuro para contraste */
+        .hero-head {
+            background-color: #122b45;
+            border-bottom: 2px solid #2e6da4;
+        }
+
+        /* Botón de login con color acorde */
+        .button.is-info {
+            background-color: #2e86c1 !important;
+            border-color: transparent !important;
+        }
+
+        .button.is-info:hover {
+            background-color: #1a5c8a !important;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero is-primary is-fullheight">
+
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a href="{{ url_for('main.index') }}" class="navbar-item">
+                                Inicio
+                            </a>
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                                Perfil de Usuario
+                            </a>
+                            {% endif %}
+                            {% if not current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                                Login
+                            </a>
+                            <a href="{{ url_for('auth.register') }}" class="navbar-item">
+                                Registro
+                            </a>
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                                Cerrar Sesión
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="hero-body">
+            <div class="container has-text-centered">
+               {% block content %}
+               {% endblock %}
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

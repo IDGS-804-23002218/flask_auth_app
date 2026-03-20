@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  ¡Bienvenido, {{ name }}!
+</h1>
+<h2 class="subtitle">
+  Has iniciado sesión como <strong style="color: #b0cce8;">{{ name }}</strong>.
+</h2>
+<p>
+  Si eres administrador puedes entrar al área de
+  <a href="admin" style="color: #7ec8e3; text-decoration: underline;">Administrador</a>
+  para administrar usuarios y roles.
+</p>
+{% endblock %}
